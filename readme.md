@@ -168,24 +168,6 @@ docker-compose up -d
 [Menunggu 10 menit berikutnya...]
 ```
 
-Tangkapan layar pertama memperlihatkan kemunculan berkas `crypto_raw.json` di dalam folder `data_lake/crypto/`. Keberadaan berkas ini menjadi bukti faktual bahwa data CoinGecko berhasil diekstraksi oleh script Python serta disimpan secara lokal. Berkas tersebut akan dieliminasi secara otomatis begitu Task 2 selesai memuat data ke ClickHouse.
-
-![Screenshot data_lake/crypto/ berisi crypto_raw.json]()
-
-Tangkapan layar berikutnya menampilkan tab Graph pada Airflow UI. Tampak dua node yang dihubungkan oleh edge berwarna biru: `fetch_crypto` di sisi kiri dan `load_to_clickhouse` di sisi kanan. Keduanya menampilkan indikator hijau bertuliskan **success**, menandakan bahwa dependency yang didefinisikan berjalan sebagaimana mestinya — Task 1 menyelesaikan eksekusinya, lalu estafet diteruskan ke Task 2, dan Task 2 sukses memuat data ke ClickHouse.
-
-![Screenshot Graph View — fetch_crypto dan load_to_clickhouse success]()
-
-Selanjutnya, perhatikan ringkasan kinerja pada panel "DAG Runs Summary". Kolom **Total success** akan terus bertambah setiap 10 menit, sejalan dengan jadwal yang ditetapkan. Pada panel grid view, setiap balok hijau merepresentasikan satu siklus eksekusi yang berhasil, dengan durasi rata-rata kurang dari 30 detik per siklus.
-
-![Screenshot DAG Runs Summary — multiple success runs]()
-
-Sebagai pemeriksaan terakhir, telusuri log dari task `fetch_crypto`. Pada keluaran log akan terlihat pesan `INFO - ✅ 250 coins berhasil dibersihkan` dan `INFO - ✅ File tersimpan!`. Pada baris paling bawah, terdapat indikator `Command exited with return code 0` — pertanda eksekusi berjalan tanpa kesalahan.
-
-![Screenshot log fetch_crypto — return code 0]()
-
----
-
 ### Step 5 — Validasi Data pada ClickHouse
 
 Tahap validasi diawali dengan identifikasi container ClickHouse yang sedang berjalan.
