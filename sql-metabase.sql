@@ -28,29 +28,7 @@ GROUP BY kategori
 ORDER BY jumlah_coin DESC;
 
 
--- Q3. Pergerakan harga Bitcoin lintas waktu.
--- Visualisasi: Line Chart (X: fetched_at, Y: harga_btc_usd).
--- Catatan: pola tren baru tampak setelah pipeline berjalan beberapa siklus.
-SELECT
-    fetched_at,
-    ROUND(current_price, 2) AS harga_btc_usd
-FROM crypto_prices
-WHERE symbol = 'BTC'
-ORDER BY fetched_at ASC;
-
-
--- Q4. Total market cap lintas waktu.
--- Visualisasi: Line Chart (X: fetched_at, Y: total_mcap_triliun).
--- Berfungsi sebagai indikator kesehatan agregat pasar.
-SELECT
-    fetched_at,
-    ROUND(SUM(market_cap) / 1e12, 3) AS total_mcap_triliun_usd
-FROM crypto_prices
-GROUP BY fetched_at
-ORDER BY fetched_at ASC;
-
-
--- Q5. Top gainers 24h.
+-- Q3. Top gainers 24h.
 -- Visualisasi: Bar Chart palet hijau (X: name, Y: naik_pct_24h).
 SELECT
     symbol,
@@ -63,7 +41,7 @@ ORDER BY price_change_pct_24h DESC
 LIMIT 10;
 
 
--- Q6. Top losers 24h.
+-- Q4. Top losers 24h.
 -- Visualisasi: Bar Chart palet merah (X: name, Y: turun_pct_24h).
 SELECT
     symbol,
@@ -76,7 +54,7 @@ ORDER BY price_change_pct_24h ASC
 LIMIT 10;
 
 
--- Q7. Volume leaders.
+-- Q5. Volume leaders.
 -- Visualisasi: Horizontal Bar Chart.
 -- Memetakan coin yang paling aktif diperdagangkan dalam 24 jam.
 SELECT
@@ -91,7 +69,7 @@ ORDER BY total_volume DESC
 LIMIT 15;
 
 
--- Q8. Volatilitas Top 50.
+-- Q6. Volatilitas Top 50.
 -- Visualisasi: Bar Chart.
 -- Menampilkan coin paling volatile pada hari berjalan.
 SELECT
@@ -107,7 +85,7 @@ ORDER BY volatilitas_pct DESC
 LIMIT 15;
 
 
--- Q9. Jarak dari ATH.
+-- Q7. Jarak dari ATH.
 -- Visualisasi: Bar Chart.
 -- Menggambarkan seberapa jauh harga saat ini dari rekor tertingginya.
 SELECT
@@ -121,7 +99,7 @@ WHERE market_cap_rank <= 20
 ORDER BY market_cap_rank ASC;
 
 
--- Q10. Metrik ringkas untuk metric cards di dashboard.
+-- Q8. Metrik ringkas untuk metric cards di dashboard.
 -- Setiap query di bawah dimaksudkan untuk satu metric card terpisah.
 
 -- Total coin yang dipantau saat ini
