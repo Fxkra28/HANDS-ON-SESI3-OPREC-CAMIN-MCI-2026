@@ -1,0 +1,24 @@
+# Berkas sementara hasil ingest, sebaiknya tidak masuk repository
+data_lake/
+
+# Cache Python — dibuat otomatis oleh interpreter
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Berisi kredensial, harus diabaikan dari version control
+.env
+.venv
+venv/
+
+# Log Airflow yang sifatnya lokal
+logs/
+
+# Berkas sistem operasi
+.DS_Store
+Thumbs.db
+
+# Konfigurasi IDE personal
+.vscode/
+.idea/
