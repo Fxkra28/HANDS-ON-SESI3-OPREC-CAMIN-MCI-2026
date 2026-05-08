@@ -189,8 +189,8 @@ Setelah berada di dalam client, lakukan inspeksi awal terhadap database dan stru
 SHOW DATABASES;
 USE analytics;
 
-DESCRIBE crypto_prices;
-SELECT COUNT(*) FROM crypto_prices;
+DESCRIBE analytics.crypto_prices;
+SELECT COUNT(*) FROM analytics.crypto_prices;
 ```
 
 Sebagai latihan analitik pertama, ambil 10 coin teratas berdasarkan kapitalisasi pasar saat ini.
@@ -200,7 +200,7 @@ SELECT market_cap_rank AS rank, symbol, name,
        ROUND(current_price, 4) AS price_usd,
        ROUND(price_change_pct_24h, 2) AS change_24h_pct,
        ROUND(market_cap / 1e9, 2) AS mcap_miliar_usd
-FROM crypto_prices
+FROM analytics.crypto_prices
 ORDER BY market_cap_rank ASC
 LIMIT 10;
 ```
@@ -210,7 +210,7 @@ Berikutnya, query untuk mengidentifikasi coin dengan kenaikan tertinggi pada per
 ```sql
 SELECT symbol, name,
        ROUND(price_change_pct_24h, 2) AS naik_pct_24h
-FROM crypto_prices
+FROM analytics.crypto_prices
 WHERE price_change_pct_24h > 0
 ORDER BY price_change_pct_24h DESC
 LIMIT 10;
@@ -222,7 +222,7 @@ Sebagai contoh analisis lanjutan, hitung proporsi dominasi Bitcoin dan Ethereum 
 SELECT symbol,
        ROUND(market_cap / (SELECT SUM(market_cap) FROM crypto_prices) * 100, 2)
        AS dominance_pct
-FROM crypto_prices
+FROM analytics.crypto_prices
 WHERE symbol IN ('BTC', 'ETH')
 ORDER BY dominance_pct DESC;
 ```
